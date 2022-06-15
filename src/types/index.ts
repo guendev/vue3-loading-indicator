@@ -1,5 +1,4 @@
-export interface IProcessBarConfig {
-    position: 'top'|'bottom'|'left'|'right'
+export interface VueLoadingIndicatorConfig {
     color: string
     errorColor: string
     duration: number
@@ -7,9 +6,10 @@ export interface IProcessBarConfig {
     throttle: number
     skipDuplicate: boolean
     autoFinish: boolean
+    delay: number
 }
 
-export interface IProcessBarState {
+export interface VueLoadingIndicatorState {
     process: number
     type: 'normal' | 'fail'
     color: string
@@ -17,14 +17,22 @@ export interface IProcessBarState {
     show: boolean
 }
 
-export interface IProcessBarMethods {
-    start(skipDuplicate?: boolean): void
+export interface LoadingIndicatorMethods {
+    // Control method
+    start(options?: Partial<VueLoadingIndicatorConfig>): void
     finish(): void
-    fail(skipDuplicate?: boolean): void
+    fail(): void
+    pause(): void
+    continue(): void
     clear(): void
+
+    // Value method
+    set(process: number): void
+    increase(amount: number): void
+    decrease(amount: number): void
 }
 
-export interface VueProcessBarInstance extends IProcessBarMethods {
-    config: IProcessBarConfig
-    state: IProcessBarState
+export interface LoadingIndicatorInstance extends LoadingIndicatorMethods {
+    config: VueLoadingIndicatorConfig
+    state: VueLoadingIndicatorState
 }

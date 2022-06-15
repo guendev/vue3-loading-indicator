@@ -1,49 +1,49 @@
 import type { App } from 'vue'
-import {IProcessBarConfig, IProcessBarState, VueProcessBarInstance} from "../index"
+import {VueLoadingIndicatorConfig, VueLoadingIndicatorState, LoadingIndicatorInstance} from "../index"
 import {reactive} from "vue"
-import {VueProcessBar} from "../index";
+import {VueLoadingIndicator} from "../index";
 
 // Custom type
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
-        $process: VueProcessBarInstance
+        $loading: LoadingIndicatorInstance
     }
 }
 
 
 const plugin = {
-    install(app: App, options?: Partial<IProcessBarConfig>) {
+    install(app: App, options?: Partial<VueLoadingIndicatorConfig>) {
 
         let DEFAULT_CONFIG = {
-            position: 'top',
             color: '#3b66f5',
-            errorColor: 'd50000',
+            errorColor: '#d50000',
+            duration: 200,
             timeGap: 100,
             throttle: 2,
-            duration: 300,
-            skipDuplicate: false,
-            autoFinish: false
+            skipDuplicate: true,
+            autoFinish: true,
+            delay: 800
         }
-        const config = Object.assign({}, DEFAULT_CONFIG, options)
-        const state: IProcessBarState = {
-            color: config.color,
+        const CONFIG = Object.assign({}, DEFAULT_CONFIG, options)
+        const state: VueLoadingIndicatorState = {
+            color: CONFIG.color,
             process: 0,
             type: 'normal',
             show: false
         }
 
-        const instance: VueProcessBarInstance = reactive<VueProcessBarInstance>({
-            config,
+        const instance: LoadingIndicatorInstance = reactive<LoadingIndicatorInstance>({
+            config: CONFIG,
             state,
-            start(skipDuplicate) {
-                // Merge custom config
-                if(skipDuplicate && this.state.show) {
+            start(options) {
+                // merge optional options
+                if(options) {
+                    Object.assign(this.config, options)
+                    this.state.color = this.config.color
+                }
+                if(this.config.skipDuplicate && this.state.show) {
                     // other running
-                    if(this.state.process >= 100) {
-                        this.clear()
-                    } else {
-                        return
-                    }
+                    return
                 } else if (this.state.show) {
                     // other running but skip !skipDuplicate
                     // => clear old
@@ -52,20 +52,7 @@ const plugin = {
                 this.state.show = true
                 // Show method
                 // Play process bar
-                this.state.timer = setInterval(() => {
-                    this.state.process += 10
-                    // upto 100%
-                    if(this.state.process >= 100) {
-                        // autoFinish => clear
-                        if(this.config.autoFinish) {
-                            this.clear()
-                        } else {
-                            // Just top clearInterval
-                            clearInterval(this.state.timer)
-                        }
-
-                    }
-                }, this.config.timeGap)
+                this.continue()
             },
             finish() {
                 if(!this.state.show) {
@@ -74,32 +61,68 @@ const plugin = {
                 }
                 clearInterval(this.state.timer)
                 // upto 100% and clear
-                this.state.process = 100 - this.state.process
-                this.clear()
-            },
-            fail(skipDuplicate) {
-                this.state.color = this.config.errorColor
-
-                // showing...just change color
-                if(this.state.show) {
-                    return
+                this.state.process = 100
+                if(this.config.autoFinish) {
+                    setTimeout(() => {
+                        this.clear()
+                    }, this.config.duration + this.config.delay)
                 }
+            },
+            fail() {
+                this.state.color = this.config.errorColor
+                // showing...just change color
+                this.finish()
+            },
+            pause() {
+                clearInterval(this.state.timer)
+            },
+            continue() {
+                this.state.timer = setInterval(() => {
+                    this.increase(10)
+                    // upto 100%
+                    if(this.state.process >= 100) {
+                        // autoFinish => clear
+                        if(this.config.autoFinish) {
+                            this.finish()
+                        } else {
+                            // Just top clearInterval
+                            clearInterval(this.state.timer)
+                        }
 
-                this.start(skipDuplicate)
+                    }
+                }, this.config.timeGap)
             },
             clear() {
                 this.state.show = false
                 clearInterval(this.state.timer)
                 this.state.timer = null
                 this.state.process = 0
-                // reset color
+                // reset config, data
+                Object.assign(this.config, CONFIG)
                 this.state.color = this.config.color
+            },
+            set(process: number) {
+                this.state.process = process
+            },
+            increase(amount) {
+                if(this.state.process + amount > 100) {
+                    this.set(100)
+                } else {
+                   this.set(this.state.process + amount)
+                }
+            },
+            decrease(amount: number) {
+                if(this.state.process - amount < 0) {
+                    this.set(0)
+                } else {
+                    this.set(this.state.process - amount)
+                }
             }
         })
 
-        app.provide('$process', instance)
-        app.component('VueProcessBar', VueProcessBar)
-        app.config.globalProperties.$process = instance
+        app.provide('$loading', instance)
+        app.component('VueLoadingIndicator', VueLoadingIndicator)
+        app.config.globalProperties.$loading = instance
     }
 }
 

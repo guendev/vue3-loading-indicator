@@ -1,6 +1,6 @@
 import { inject } from 'vue'
-import {VueProcessBarInstance} from "../types";
+import {LoadingIndicatorInstance} from "../types";
 
-export const useProcessBar = (): VueProcessBarInstance => {
-    return inject('$process')!
+export const useProcessBar = () => {
+    return inject<LoadingIndicatorInstance>('$loading')
 }

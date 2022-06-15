@@ -1,5 +1,5 @@
 // Component
-import VueProcessBar from "./components/VueProcessBar.vue"
+import VueLoadingIndicator from "./components/VueLoadingIndicator.vue"
 
 // Loading plugin
 import plugin from "./plugin"
@@ -10,7 +10,7 @@ import {useProcessBar} from "./composable"
 export default plugin
 
 export {
-    VueProcessBar,
+    VueLoadingIndicator,
     useProcessBar
 }
 

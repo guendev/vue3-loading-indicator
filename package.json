@@ -1,7 +1,7 @@
 {
-  "name": "@nguyenshort/vue3-process-bar",
+  "name": "@nguyenshort/vue3-loading-indicator",
   "version": "0.0.3",
-  "description": "Vue 3 Loading process bar. Support typescript, composable API, option API",
+  "description": "Vue 3 Loading Indicator bar. Support typescript, composable API, option API",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
@@ -23,6 +23,8 @@
     "vue",
     "process",
     "processbar",
+    "loading",
+    "loading indicator",
     "vue-progressbar",
     "vue loading progress",
     "vue loading process",

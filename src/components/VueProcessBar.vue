@@ -85,6 +85,6 @@ const style2 = computed(() => {
   z-index: 999999;
 }
 .vue-process-bar ._process {
-  transition: 200ms linear;
+  /*transition: 200ms linear;*/
 }
 </style>

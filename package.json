@@ -1,6 +1,5 @@
 {
   "name": "@nguyenshort/vue3-process-bar",
-  "private": true,
   "version": "0.0.1",
   "description": "Vue 3 Loading process bar. Support typescript, composable API, option API",
   "license": "MIT",

@@ -1,6 +1,6 @@
 import { inject } from 'vue'
-import {LoadingIndicatorInstance} from "../types";
+import {VueLoadingIndicatorInstance} from "../types";
 
 export const useLoadingIndicator = () => {
-    return inject<LoadingIndicatorInstance>('$loading')
+    return inject<VueLoadingIndicatorInstance>('$loading')
 }

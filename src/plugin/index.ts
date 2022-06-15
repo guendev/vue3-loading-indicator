@@ -1,12 +1,12 @@
 import type { App } from 'vue'
-import {VueLoadingIndicatorConfig, VueLoadingIndicatorState, LoadingIndicatorInstance} from "../index"
+import {VueLoadingIndicatorConfig, VueLoadingIndicatorState, VueLoadingIndicatorInstance} from "../index"
 import {reactive} from "vue"
 import {VueLoadingIndicator} from "../index";
 
 // Custom type
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
-        $loading: LoadingIndicatorInstance
+        $loading: VueLoadingIndicatorInstance
     }
 }
 
@@ -32,7 +32,7 @@ const plugin = {
             show: false
         }
 
-        const instance: LoadingIndicatorInstance = reactive<LoadingIndicatorInstance>({
+        const instance: VueLoadingIndicatorInstance = reactive<VueLoadingIndicatorInstance>({
             config: CONFIG,
             state,
             start(options) {

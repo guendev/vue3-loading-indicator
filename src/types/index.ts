@@ -32,7 +32,7 @@ export interface LoadingIndicatorMethods {
     decrease(amount: number): void
 }
 
-export interface LoadingIndicatorInstance extends LoadingIndicatorMethods {
+export interface VueLoadingIndicatorInstance extends LoadingIndicatorMethods {
     config: VueLoadingIndicatorConfig
     state: VueLoadingIndicatorState
 }

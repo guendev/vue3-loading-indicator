@@ -1,11 +1,41 @@
 {
   "name": "@nguyenshort/vue3-process-bar",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Vue 3 Loading process bar. Support typescript, composable API, option API",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenshort/vue3-process-bar"
+  },
+  "bugs": {
+    "url": "https://github.com/nguyenshort/vue3-process-bar",
+    "email": "nguyenshort@gmail.com"
+  },
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "vue",
+    "process",
+    "processbar",
+    "vue-progressbar",
+    "vue loading progress",
+    "vue loading process",
+    "vue progressbar",
+    "vue3",
+    "vue3-progressbar",
+    "vue3 loading progress",
+    "vue3 progressbar",
+    "progressbar"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "vue": "^3.2.25"

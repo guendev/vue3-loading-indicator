@@ -1,6 +1,6 @@
 {
   "name": "@nguyenshort/vue3-loading-indicator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Vue 3 Loading Indicator bar. Support typescript, composable API, option API",
   "license": "MIT",
   "scripts": {

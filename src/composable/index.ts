@@ -1,6 +1,6 @@
 import { inject } from 'vue'
-import {VueProcessBar} from "../types";
+import {VueProcessBarInstance} from "../types";
 
-export const useProcessBar = (): VueProcessBar => {
+export const useProcessBar = (): VueProcessBarInstance => {
     return inject('$process')!
 }

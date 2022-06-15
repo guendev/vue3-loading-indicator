@@ -1,11 +1,12 @@
 import type { App } from 'vue'
-import {IProcessBarConfig, IProcessBarState, VueProcessBar} from "../types"
+import {IProcessBarConfig, IProcessBarState, VueProcessBarInstance} from "../index"
 import {reactive} from "vue"
+import {VueProcessBar} from "../index";
 
 // Custom type
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
-        $process: VueProcessBar
+        $process: VueProcessBarInstance
     }
 }
 
@@ -31,7 +32,7 @@ const plugin = {
             show: false
         }
 
-        const instance: VueProcessBar = reactive<VueProcessBar>({
+        const instance: VueProcessBarInstance = reactive<VueProcessBarInstance>({
             config,
             state,
             start(skipDuplicate) {
@@ -97,6 +98,7 @@ const plugin = {
         })
 
         app.provide('$process', instance)
+        app.component('VueProcessBar', VueProcessBar)
         app.config.globalProperties.$process = instance
     }
 }

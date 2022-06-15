@@ -24,7 +24,7 @@ export interface IProcessBarMethods {
     clear(): void
 }
 
-export interface VueProcessBar extends IProcessBarMethods {
+export interface VueProcessBarInstance extends IProcessBarMethods {
     config: IProcessBarConfig
     state: IProcessBarState
 }

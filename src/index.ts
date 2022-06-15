@@ -13,3 +13,5 @@ export {
     VueProcessBar,
     useProcessBar
 }
+
+export * from './types'

@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nguyenshort/vue3-process-bar"
+    "url": "https://github.com/nguyenshort/vue3-loading-indicator"
   },
   "bugs": {
-    "url": "https://github.com/nguyenshort/vue3-process-bar",
+    "url": "https://github.com/nguyenshort/vue3-loading-indicator",
     "email": "nguyenshort@gmail.com"
   },
   "main": "dist/index.es.js",

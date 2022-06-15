@@ -16,10 +16,10 @@ export default defineComponent({
 
 <script lang="ts" setup>
 
-import {useProcessBar} from "../composable";
+import {useLoadingIndicator} from "../composable";
 import {computed, CSSProperties, ref} from "vue";
 
-const $loading = useProcessBar()
+const $loading = useLoadingIndicator()
 
 const style = computed<CSSProperties>(() => {
   return {
